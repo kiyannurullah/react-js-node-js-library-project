@@ -64,7 +64,7 @@ const BookList = () => {
 
                 {
                     booksReducer.fetching && isDefined(booksReducer.book_list) ?
-                        <>zaa</>
+                        <>Loading...</>
                         :
                         <>
                             <Grid container>
