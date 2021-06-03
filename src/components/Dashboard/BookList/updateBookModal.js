@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {AddBook, getBooks} from "../../../redux/actions/libraryActions";
-
+import {getBooks, UpdateBook} from "../../../redux/actions/libraryActions";
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,24 +10,29 @@ import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {useDispatch} from "react-redux";
 import {isDefined} from "../../../utils";
 import Alert from '@material-ui/lab/Alert';
+import ChromeReaderModeIcon from "@material-ui/icons/ChromeReaderMode";
+import IconButton from "@material-ui/core/IconButton";
+import Collapse from '@material-ui/core/Collapse';
+import CloseIcon from '@material-ui/icons/Close';
 
-export default function AddBookModal(props) {
+export default function UpdateBookModal(props) {
     const dispatch = useDispatch();
 
-    const {booksReducer} = props;
+    const {booksReducer, book} = props;
 
     const [open, setOpen] = React.useState(false);
-    const [message, setMessage] = React.useState(null);
-    const [formData, setFormData] = useState({ title: "", description: "", author: "" });
+    const [openError, setOpenError] = React.useState(false);
+    const [message, setMessage] = React.useState("");
+    const [formData, setFormData] = useState({ title: book.title, description: "", author: "" });
 
     const handleClickOpen = () => {
         setOpen(true);
-        setMessage(null)
-        setFormData({title: "", description: "", author: "" })
+        setFormData({title: book.title, description: book.description, author: book.author })
     };
 
     const handleClose = () => {
         setOpen(false);
+        setMessage("")
     };
 
     const handleChange = ({ target: { name, value } }) => {
@@ -37,22 +41,24 @@ export default function AddBookModal(props) {
 
     const onSubmit = () => {
         const params = {
+            id: book.bookId,
             title: formData.title,
             description: formData.description,
-            author: formData.author,
+            author: formData.author
         }
-        dispatch(AddBook(params))
+        dispatch(UpdateBook(params))
     }
 
     useEffect( () => {
 
-        if (booksReducer && booksReducer.add_book && isDefined(booksReducer.add_book.message) && isDefined(booksReducer.add_book.message.message)){
-            const newState = booksReducer.add_book.message.message;
+        if (booksReducer && booksReducer.update_book && isDefined(booksReducer.error_update_book) && isDefined(booksReducer.error_update_book.response)) {
+            const newState = booksReducer.error_update_book.response.data.message;
+            setOpenError(true)
             setMessage(newState);
         }
 
-        if (booksReducer && booksReducer.add_book && isDefined(booksReducer.add_book.bookId)){
-
+        if (booksReducer && booksReducer.update_book && booksReducer.update_book.ok === 1){
+            setOpenError(false)
             handleClose()
             dispatch(getBooks())
         }
@@ -61,9 +67,9 @@ export default function AddBookModal(props) {
 
     return (
         <>
-            <Button variant="contained" color="primary" onClick={handleClickOpen}>
-                Add New Book
-            </Button>
+            <IconButton edge="end" aria-label="detail" onClick={handleClickOpen}>
+                <ChromeReaderModeIcon />
+            </IconButton>
             <Dialog open={open} onClose={handleClose} aria-labelledby="add-new-book-title" disableBackdropClick>
                 <DialogTitle id="add-new-book-title">Add New Book</DialogTitle>
                 <ValidatorForm onSubmit={onSubmit}>
@@ -72,8 +78,24 @@ export default function AddBookModal(props) {
                             After typing the book information, you can save it by pressing the save button.
                         </DialogContentText>
                         {
-                            message &&
-                            <Alert severity="error">{message}</Alert>
+                            isDefined(message) &&
+                            <Collapse in={openError}>
+                                <Alert severity="error" action={
+                                    <IconButton
+                                        aria-label="close"
+                                        color="inherit"
+                                        size="small"
+                                        onClick={() => {
+                                            setOpenError(false);
+                                        }}
+                                    >
+                                        <CloseIcon fontSize="inherit" />
+                                    </IconButton>
+                                }
+                                >
+                                    {message}
+                                </Alert>
+                            </Collapse>
                         }
                         <TextValidator
                             variant="outlined"
