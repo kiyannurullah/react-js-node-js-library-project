@@ -1,11 +1,10 @@
 import axios from "axios";
-import {LOGIN_URL, LOGOUT_URL} from "../../constants/api.constants"
-import {getAppLang, getUserToken} from "../../utils";
+import {LOGIN_URL} from "../../constants/api.constants"
 
-export const login = (username, password, remember_me, onesignal_key) => {
+export const login = (username, password) => {
 
     const requestOptions = {
-        headers: { 'Content-Type': 'application/json',  'language' : getAppLang()},
+        headers: { 'Content-Type': 'application/json'},
         body:{
             email: username,
             password: password
@@ -21,24 +20,6 @@ export const login = (username, password, remember_me, onesignal_key) => {
     }
 
 };
-
-export const logout = () => {
-    const requestOptions = {
-        headers: { 'Content-Type': 'application/json',  'authToken': getUserToken(), 'language' : getAppLang()},
-    };
-
-    return dispatch => {
-        dispatch({
-            type: 'LOGOUT',
-            payload: axios.post(LOGOUT_URL,{}, {headers: requestOptions.headers})
-                .then(response => response.data)
-        })
-    }
-};
-
-export const clearState =  () => {
-    return { type:'CLEAR_STATE' }
-}
 
 export const userClearState = () => {
     return { type:'USER_CLEAR_STATE' }

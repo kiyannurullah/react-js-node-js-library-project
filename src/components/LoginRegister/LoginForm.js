@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch,useSelector} from "react-redux";
-
+import {useDispatch, useSelector} from "react-redux";
 import {userLogin} from "../../utils";
 import {login, userClearState} from "../../redux/actions/userActions";
 import {history} from "../../utils/history";
@@ -38,13 +37,13 @@ const LoginForm = () => {
 
     const dispatch = useDispatch();
 
-    const onSubmit = data => {
+    const onSubmit = () => {
         dispatch(login(formData.email, formData.password))
     };
 
     useEffect( () => {
 
-        if(userReducer && !userReducer.fetching && !userReducer.fetching && Object.keys(userReducer.error).length>0){
+        if(userReducer && !userReducer.fetching && Object.keys(userReducer.error).length>0){
             const newState = userReducer.error.response.data.message;
             setErrorMessage(newState);
         }
@@ -64,8 +63,6 @@ const LoginForm = () => {
     const handleChange = ({ target: { name, value } }) => {
         setFormData({ ...formData, [name]: value });
     };
-
-    console.log(formData)
 
     return (
         <div className={classes.root}>
@@ -125,8 +122,6 @@ const LoginForm = () => {
                                 </ColorButton>
                             </Grid>
                         </Grid>
-
-
                     </ValidatorForm>
                 </Grid>
                 <Grid item lg={6} style={{backgroundImage: 'url(https://preview.keenthemes.com/metronic/theme/html/demo1/dist/assets/media/svg/illustrations/login-visual-4.svg)',

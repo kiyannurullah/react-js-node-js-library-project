@@ -1,66 +1,51 @@
-import {xchangeConstants} from "../../constants/library.constans";
+import {getBooksConstants, addBookConstants} from "../../constants/library.constans";
 
 const initialState = {
     fetching : false,
-    fetchingList : false,
-    status : false,
-    xchange : [],
-    xchangeList : [],
-    xchangeCurrency : [],
+    book_list : [],
     error : '',
+
+    add_book : [],
+    error_add_book : '',
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case xchangeConstants.XCHANGE_PENDING:
+        case getBooksConstants.GET_BOOKS_PENDING:
             return {
                 ...state,
                 fetching: true,
-                status: false,
+                error: {},
+                error_add_book: {},
+                add_book: []
             };
-        case xchangeConstants.XCHANGE_FULFILLED:
+        case getBooksConstants.GET_BOOKS_FULFILLED:
             return {
                 ...state,
                 fetching: false,
-                status: true,
-                xchange: action.payload,
+                book_list: action.payload
             };
-        case xchangeConstants.XCHANGE_REJECTED:
+        case getBooksConstants.GET_BOOKS_REJECTED:
             return {
                 ...state,
                 error: action.payload,
                 fetching: false
             };
-        case xchangeConstants.XCHANGE_LIST_PENDING:
+
+        case addBookConstants.ADD_BOOK_PENDING:
             return {
                 ...state,
-                fetchingList: true,
+                error_add_book: {}
             };
-        case xchangeConstants.XCHANGE_LIST_FULFILLED:
+        case addBookConstants.ADD_BOOK_FULFILLED:
             return {
                 ...state,
-                fetchingList: false,
-                xchangeList: action.payload,
+                add_book: action.payload
             };
-        case xchangeConstants.XCHANGE_LIST_REJECTED:
+        case addBookConstants.ADD_BOOK_REJECTED:
             return {
                 ...state,
-                fetchingList: false,
-                error: action.payload,
-            };
-        case xchangeConstants.XCHANGE_CURRENCY_PENDING:
-            return {
-                ...state,
-            };
-        case xchangeConstants.XCHANGE_CURRENCY_FULFILLED:
-            return {
-                ...state,
-                xchangeCurrency: action.payload,
-            };
-        case xchangeConstants.XCHANGE_CURRENCY_REJECTED:
-            return {
-                ...state,
-                error: action.payload,
+                error_add_book: action.payload
             };
         default:
             return state
