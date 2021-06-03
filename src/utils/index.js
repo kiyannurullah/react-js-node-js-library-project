@@ -1,7 +1,6 @@
 
 const TOKEN_KEY = "auth";
 const PROPERTY  = "property";
-const EXP_TIME  = "exp_time";
 const APP_LANG  = "lng";
 const USER_NAME = "name"
 const PROPERTY_NAME = "property_name"
@@ -9,12 +8,12 @@ const PROPERTY_NAME = "property_name"
 export const userLogin = (token) => {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.setItem(TOKEN_KEY,token);
+
 };
 
 
 export const userLogout = () => {
     localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(EXP_TIME);
     localStorage.removeItem(USER_NAME);
 };
 
@@ -42,26 +41,8 @@ export function timeToTimestamp(strDate){
     return Date.parse(strDate);
 }
 
-export function getExpireTime() {
-    return localStorage.getItem(EXP_TIME);
-}
-
-export function setExpireTime(strDate) {
-    localStorage.removeItem(EXP_TIME);
-    let expTimestamp = timeToTimestamp(strDate.replace(/-/g, "/"));
-    setLocalStorage(EXP_TIME,expTimestamp);
-}
-
 export function setUserName(userName){
     setLocalStorage(USER_NAME,userName)
-}
-
-export function checkExpireTime() {
-    let expTime = getExpireTime();
-    let date = new Date();
-    let currentTime = date.getTime();
-
-    return expTime >= currentTime;
 }
 
 export function getMinutesBetweenTwoTimestamp(startTime, endTime) {

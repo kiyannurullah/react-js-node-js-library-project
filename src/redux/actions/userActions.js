@@ -8,9 +8,7 @@ export const login = (username, password, remember_me, onesignal_key) => {
         headers: { 'Content-Type': 'application/json',  'language' : getAppLang()},
         body:{
             email: username,
-            password: password,
-            remember_me: remember_me,
-            onesignal_key: onesignal_key,
+            password: password
         }
     };
 

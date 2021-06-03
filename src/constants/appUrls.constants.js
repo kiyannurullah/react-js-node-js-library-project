@@ -7,7 +7,7 @@ export const REGISTER = "/register";
 
 //Private Urls
 export const APP = "/app";
-export const CONTENT = "/app/content";
+export const BOOK_LIST = "/book-list";
 
 
 

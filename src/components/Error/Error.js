@@ -1,19 +1,12 @@
-import React, {Component} from 'react';
-import {Link} from "react-router-dom";
-import {compose} from "redux";
+import React from 'react';
 
-class Error extends Component {
-    constructor(props){
-        super(props);
-    }
-    render() {
-        return (
-            <div>
-asdasd
+const Error = () => {
 
-            </div>
-        );
-    }
-}
 
+    return (
+        <div>
+            Error Page
+        </div>
+    );
+};
 export default Error;

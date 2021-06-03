@@ -4,11 +4,25 @@ import { AppRoute } from "./routes";
 import * as serviceWorker from './serviceWorker';
 import {Provider} from "react-redux";
 import store from "./redux/store/store";
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+    typography: {
+        fontFamily: [
+            'Signika Negative', "sans-serif",
+        ].join(','),
+        fontWeight: [
+            600
+        ].join(','),
+    },});
 
 const render = Component => ReactDOM.render(
+    <ThemeProvider theme={theme}>
+
     <Provider store={store}>
         <Component/>
-    </Provider>,
+    </Provider>
+    </ThemeProvider>,
     document.getElementById('root')
 );
 
