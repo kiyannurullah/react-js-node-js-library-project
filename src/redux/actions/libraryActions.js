@@ -1,57 +1,20 @@
-import { GET_XCHANGE, GET_XCHANGE_LIST, GET_XCHANGE_CURRENCY } from "../../constants/api.constants";
+import { GET_BOOKS } from "../../constants/api.constants";
 import axios from 'axios';
+import {getUserToken} from "../../utils";
 
-export function getXchange(param) {
+export function getBooks(param) {
 
+    const auth = 'Bearer '.concat(getUserToken())
     const requestOptions = {
-        headers: { 'Content-Type': 'application/json'},
-        body: {
-            uid: param,
-        }
+        headers: { 'Content-Type': 'application/json',  'Authorization' : auth},
     };
+
 
     return dispatch => {
         dispatch({
-            type: 'XCHANGE',
-            payload: axios.post(GET_XCHANGE, requestOptions.body,{headers: requestOptions.headers})
-                .then(response => response.data)
+            type: 'GET_BOOKS',
+            payload: axios.get(GET_BOOKS, { headers: requestOptions.headers })
+                .then(response => response.data.response)
         })
     }
 }
-
-export function getXchangeList (token) {
-
-    const requestOptions = {
-        headers: { 'Content-Type': 'application/json'},
-        body: {
-            token: token,
-        }
-    };
-
-    return dispatch => {
-        dispatch({
-            type: 'XCHANGE_LIST',
-            payload: axios.post(GET_XCHANGE_LIST, requestOptions.body,{headers: requestOptions.headers})
-                .then(response => response.data)
-        })
-    }
-}
-
-export function getXchangeCurrency (token) {
-
-    const requestOptions = {
-        headers: { 'Content-Type': 'application/json'},
-        body: {
-            token: token,
-        }
-    };
-
-    return dispatch => {
-        dispatch({
-            type: 'XCHANGE_CURRENCY',
-            payload: axios.post(GET_XCHANGE_CURRENCY, requestOptions.body,{headers: requestOptions.headers})
-                .then(response => response.data)
-        })
-    }
-}
-

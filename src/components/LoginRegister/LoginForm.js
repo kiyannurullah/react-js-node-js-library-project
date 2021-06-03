@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch,useSelector} from "react-redux";
-
+import {useDispatch, useSelector} from "react-redux";
 import {userLogin} from "../../utils";
 import {login, userClearState} from "../../redux/actions/userActions";
 import {history} from "../../utils/history";
@@ -64,8 +63,6 @@ const LoginForm = () => {
     const handleChange = ({ target: { name, value } }) => {
         setFormData({ ...formData, [name]: value });
     };
-
-    console.log(formData)
 
     return (
         <div className={classes.root}>
