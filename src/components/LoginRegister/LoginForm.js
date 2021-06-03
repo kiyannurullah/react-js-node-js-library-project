@@ -37,13 +37,13 @@ const LoginForm = () => {
 
     const dispatch = useDispatch();
 
-    const onSubmit = data => {
+    const onSubmit = () => {
         dispatch(login(formData.email, formData.password))
     };
 
     useEffect( () => {
 
-        if(userReducer && !userReducer.fetching && !userReducer.fetching && Object.keys(userReducer.error).length>0){
+        if(userReducer && !userReducer.fetching && Object.keys(userReducer.error).length>0){
             const newState = userReducer.error.response.data.message;
             setErrorMessage(newState);
         }
@@ -122,8 +122,6 @@ const LoginForm = () => {
                                 </ColorButton>
                             </Grid>
                         </Grid>
-
-
                     </ValidatorForm>
                 </Grid>
                 <Grid item lg={6} style={{backgroundImage: 'url(https://preview.keenthemes.com/metronic/theme/html/demo1/dist/assets/media/svg/illustrations/login-visual-4.svg)',

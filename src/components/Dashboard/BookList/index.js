@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const BookList = () => {
     const classes = useStyles();
 
-    const getBooksReducer = useSelector(props => props.libraryReducers)
+    const booksReducer = useSelector(props => props.libraryReducers)
 
     const dispatch = useDispatch();
 
@@ -57,19 +57,19 @@ const BookList = () => {
         <Container maxWidth="xl">
             <Grid container>
                 <Grid item xs={12} className={classes.addNewGrid}>
-                   <AddBookModal />
+                   <AddBookModal booksReducer={booksReducer} />
                 </Grid>
             </Grid>
             <Grid container className={classes.root} spacing={2}>
 
                 {
-                    getBooksReducer.fetching && isDefined(getBooksReducer.book_list) ?
+                    booksReducer.fetching && isDefined(booksReducer.book_list) ?
                         <>zaa</>
                         :
                         <>
                             <Grid container>
                                 {
-                                    getBooksReducer.book_list.map((book, key) => (
+                                    booksReducer.book_list.map((book, key) => (
                                         <Grid item xs={12} md={2} className={classes.book} key={key}>
                                             <Card className={classes.bookCard}>
                                                 <CardMedia

@@ -1,9 +1,12 @@
-import {getBooksConstants} from "../../constants/library.constans";
+import {getBooksConstants, addBookConstants} from "../../constants/library.constans";
 
 const initialState = {
     fetching : false,
     book_list : [],
     error : '',
+
+    add_book : [],
+    error_add_book : '',
 };
 
 export default function (state = initialState, action) {
@@ -12,7 +15,9 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 fetching: true,
-                error: {}
+                error: {},
+                error_add_book: {},
+                add_book: []
             };
         case getBooksConstants.GET_BOOKS_FULFILLED:
             return {
@@ -25,6 +30,22 @@ export default function (state = initialState, action) {
                 ...state,
                 error: action.payload,
                 fetching: false
+            };
+
+        case addBookConstants.ADD_BOOK_PENDING:
+            return {
+                ...state,
+                error_add_book: {}
+            };
+        case addBookConstants.ADD_BOOK_FULFILLED:
+            return {
+                ...state,
+                add_book: action.payload
+            };
+        case addBookConstants.ADD_BOOK_REJECTED:
+            return {
+                ...state,
+                error_add_book: action.payload
             };
         default:
             return state

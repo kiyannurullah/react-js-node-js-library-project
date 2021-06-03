@@ -1,6 +1,5 @@
 import axios from "axios";
 import {LOGIN_URL} from "../../constants/api.constants"
-import {getAppLang} from "../../utils";
 
 export const login = (username, password) => {
 

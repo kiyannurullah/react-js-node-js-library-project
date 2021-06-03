@@ -3,3 +3,9 @@ export const getBooksConstants = {
     GET_BOOKS_FULFILLED: 'GET_BOOKS_FULFILLED',
     GET_BOOKS_REJECTED : 'GET_BOOKS_REJECTED',
 };
+
+export const addBookConstants = {
+    ADD_BOOK_PENDING  : 'ADD_BOOK_PENDING',
+    ADD_BOOK_FULFILLED: 'ADD_BOOK_FULFILLED',
+    ADD_BOOK_REJECTED : 'ADD_BOOK_REJECTED',
+};
