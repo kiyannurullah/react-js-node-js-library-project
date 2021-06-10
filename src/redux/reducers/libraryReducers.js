@@ -1,7 +1,11 @@
-import {getBooksConstants, addBookConstants, updateBookConstants} from "../../constants/library.constans";
+import {
+    getBooksConstants,
+    addBookConstants,
+    updateBookConstants
+} from "../../constants/library.constans";
 
 const initialState = {
-    fetching : false,
+    fetching : true,
     book_list : [],
     error : {},
 
@@ -9,7 +13,7 @@ const initialState = {
     error_add_book : '',
 
     update_book : [],
-    error_update_book : {},
+    error_update_book : {}
 };
 
 export default function (state = initialState, action) {
