@@ -10,10 +10,10 @@ import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {useDispatch} from "react-redux";
 import {isDefined} from "../../../utils";
 import Alert from '@material-ui/lab/Alert';
-import ChromeReaderModeIcon from "@material-ui/icons/ChromeReaderMode";
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from '@material-ui/core/Collapse';
 import CloseIcon from '@material-ui/icons/Close';
+import EditIcon from "@material-ui/icons/Edit";
 
 export default function UpdateBookModal(props) {
     const dispatch = useDispatch();
@@ -57,26 +57,26 @@ export default function UpdateBookModal(props) {
             setMessage(newState);
         }
 
-        if (booksReducer && booksReducer.update_book && booksReducer.update_book.ok === 1){
+        if (booksReducer && booksReducer.update_book && booksReducer.update_book.status === 200 && booksReducer.update_book.data.bookId === book.bookId  ){
             setOpenError(false)
             handleClose()
             dispatch(getBooks())
         }
 
-    },[booksReducer])
+    },[booksReducer, book])
+
+    console.log("booksReducer", book.bookId)
+    console.log("booksReducer", booksReducer)
 
     return (
         <>
             <IconButton edge="end" aria-label="detail" onClick={handleClickOpen}>
-                <ChromeReaderModeIcon />
+                <EditIcon />
             </IconButton>
             <Dialog open={open} onClose={handleClose} aria-labelledby="add-new-book-title" disableBackdropClick>
-                <DialogTitle id="add-new-book-title">Add New Book</DialogTitle>
+                <DialogTitle id="add-new-book-title">Update Book</DialogTitle>
                 <ValidatorForm onSubmit={onSubmit}>
                     <DialogContent>
-                        <DialogContentText>
-                            After typing the book information, you can save it by pressing the save button.
-                        </DialogContentText>
                         {
                             isDefined(message) &&
                             <Collapse in={openError}>
@@ -97,6 +97,9 @@ export default function UpdateBookModal(props) {
                                 </Alert>
                             </Collapse>
                         }
+                        <DialogContentText>
+                            After typing the book information, you can save it by pressing the save button.
+                        </DialogContentText>
                         <TextValidator
                             variant="outlined"
                             autoFocus

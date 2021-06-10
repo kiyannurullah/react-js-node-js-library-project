@@ -10,6 +10,5 @@ export const REGISTER = BASE_API+"/register";
 export const GET_BOOKS = BASE_API+"/get-books";
 export const ADD_BOOK = BASE_API+"/create-new-book";
 export const UPDATE_BOOK = BASE_API+"/update-book/";
-export const DELETE_BOOK = BASE_API+"/delete-book/";
 export const SEARCH_BOOK = BASE_API+"/search/";
 

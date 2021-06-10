@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {userLogin} from "../../utils";
+import {isDefined, userLogin} from "../../utils";
 import {login, userClearState} from "../../redux/actions/userActions";
 import {history} from "../../utils/history";
 import {BOOK_LIST} from "../../constants/appUrls.constants";
@@ -44,7 +44,7 @@ const LoginForm = () => {
     useEffect( () => {
 
         if(userReducer && !userReducer.fetching && Object.keys(userReducer.error).length>0){
-            const newState = userReducer.error.response.data.message;
+            const newState = isDefined(userReducer.error.response) && userReducer.error.response.data.message;
             setErrorMessage(newState);
         }
 
