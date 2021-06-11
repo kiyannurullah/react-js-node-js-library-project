@@ -65,9 +65,6 @@ export default function UpdateBookModal(props) {
 
     },[booksReducer, book])
 
-    console.log("booksReducer", book.bookId)
-    console.log("booksReducer", booksReducer)
-
     return (
         <>
             <IconButton edge="end" aria-label="detail" onClick={handleClickOpen}>
